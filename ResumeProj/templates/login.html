@@ -20,7 +20,7 @@
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     
     <style type = "text/css">
-    /* body {background-color: #96777d;} */
+    body {background-color: #96777d;}
 
     </style>
 
@@ -31,14 +31,16 @@
         <h1>Login Page</h1>
         <hr>
 
-        <div class = "container text-center">
+        <div class = "container text-justify">
             <form method = "POST"> {% csrf_token %}
                 <label class="text-danger"> {{form.errors}} </label></br>
                 <b>Username</b> : <input type="text" name='username'></br></br>
-                <b>Password</b> : <input type="password" name='password'>
+                <b>Password</b> : <input type="password" name='password'></br></br>
             
                 <button type = "submit">Login</button>
             </form>
+        </br>
+            <a href = 'http://127.0.0.1:8000/' class="btn btn-default">Back</a>
         </div>
     </div>
 

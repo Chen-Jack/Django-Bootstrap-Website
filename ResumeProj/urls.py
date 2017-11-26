@@ -5,6 +5,6 @@ from account import urls as account_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', home_views.HomeView.as_view() ), #Home Page  
+    url(r'^$', home_views.HomeView.as_view() , name='main_page' ), #Home Page  
     url(r'^account/', include(account_urls)), #All account related urls
 ]

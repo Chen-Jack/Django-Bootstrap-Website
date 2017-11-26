@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import TemplateView, CreateView, FormView, View, DetailView
 from django.urls import reverse_lazy
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.forms import ModelForm
 from .forms import *
 
@@ -51,7 +51,14 @@ class LoginView(FormView):
                 login(self.request, logged_in_user)
                 return HttpResponseRedirect(reverse_lazy('account:home', kwargs={"pk":str(logged_in_user.id)}))
             else:
-                pass
+                return HttpResponse("Incorrect Username/Password")
             
         else:
             return HttpResponse("Bad form input")
+
+class LogOutView(View):
+    
+    def get(self, request):
+        logout(self.request)
+        print('logging off')
+        return HttpResponseRedirect(reverse_lazy('main_page'))
