@@ -22,6 +22,8 @@
     
     <style type = "text/css">
     body {background-color:#d7cec7;}
+    hr{border-color:black;}
+    a{color:black;}
 
     </style>
 
@@ -66,7 +68,9 @@
     </nav>
 
     <div class = "container text-center">
-        <h1> Latest posts by {{user.username.capitalize}} </h1>
+        <div class="jumbotron" style="border-style:solid">
+            <h1> Latest posts by {{user.username.capitalize}} </h1>
+        </div>
         <hr>
     </div>
 
@@ -75,11 +79,23 @@
             <div class="col-lg-10 col-md-10 col-sm-10">
                 <a href="#" style="color:black"><u>Posts</u> <i class="glyphicon glyphicon-menu-down"></i></a>
                 <hr>
+                <!-- Prev/Next Page -->
+                <div container>
+                        {% if prev_page != 0 %}
+                        <a href= {% url 'account:user' pk=user.id page=prev_page %}>
+                            <i class = "glyphicon glyphicon-triangle-left"></i>Prev </a>
+                        {% endif %}
+                        <a href= {% url 'account:user' pk=user.id page=next_page %}> Next 
+                            <i class = "glyphicon glyphicon-triangle-right"></i></a>
+                    </div>
+                <hr>
+                
+                <!-- Entries -->
                 
                 {% for entry in entries %}
-                <!-- <div class="jumbotron" style="border-style: solid"> -->
                     <h4><a href= {% url 'entry:detail' pk=entry.pk %}>{{entry.title}}</a>
                         <a href= {% url 'entry:edit' pk=entry.pk %}><i class="glyphicon glyphicon-pencil"></i></a>    
+                        <a href= {% url 'entry:delete' pk=entry.pk %}><i class="glyphicon glyphicon-trash"></i></a>
                     </h4>
                     <p>
                     Created: {{entry.time_created}}</br>
@@ -88,9 +104,8 @@
                     <p>{{entry.text}}</p></br>
 
                     <hr>
-      
-                <!-- </div> -->
                 {% endfor %}
+                
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2" >
                 <ul class = "nav navbar-nav" style="background-color:bisque"  style="border-style: solid">
@@ -100,6 +115,19 @@
                 </ul>
             </div>
         </div>
+
+        <!-- Prev/ Next Page -->
+        <div container>
+                {% if prev_page != 0 %}
+                <a href= {% url 'account:user' pk=user.id page=prev_page %}>
+                    <i class = "glyphicon glyphicon-triangle-left"></i>Prev </a>
+                {% endif %}
+                <a href= {% url 'account:user' pk=user.id page=next_page %}> Next 
+                    <i class = "glyphicon glyphicon-triangle-right"></i></a>
+            </div>
+        <hr>
+
+       
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

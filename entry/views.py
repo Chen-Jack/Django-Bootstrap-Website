@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, View
 from account.models import Entry
 from .views import *
 from .forms import *
@@ -40,8 +40,9 @@ class EntryEditView(UpdateView):
         return reverse_lazy( "entry:detail", kwargs={"pk":self.object.id})
     
 
-class EntryDeleteView(DeleteView):
-    model = Entry
+class EntryDeleteView(View):
 
-    def get_success_url(self):
-        return reverse_lazy( "account:user", kwargs={"pk":self.request.user.id, "page":"1"})
+    def get(self, *args, **kwargs):
+        obj = Entry.objects.filter(id = kwargs['pk'])
+        obj.delete()
+        return HttpResponseRedirect(reverse_lazy( "account:user", kwargs={"pk":self.request.user.id, "page":"1"}))

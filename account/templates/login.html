@@ -21,7 +21,7 @@
     
     <style type = "text/css">
     body {background-color:#d7cec7;}
-
+    hr{border-color:black;}
 
     }
     </style>
@@ -29,8 +29,11 @@
 </head>
 
   <body>
+  </br>
     <div class = "container">
-        <h1>Login Page</h1>
+        <div class="jumbotron text-center" style="border-style:solid">
+            <h1>Login Page</h1>
+        </div>
         <hr>
 
         <div class = "container text-justify">
@@ -39,10 +42,10 @@
                 <b>Username</b> : <input type="text" name='username'></br></br>
                 <b>Password</b> : <input type="password" name='password'></br></br>
             
-                <button type = "submit">Login</button>
+                <button type = "submit" class="btn btn-default">Login</button>
+                <a href = {% url 'main_page' %} class="btn btn-default">Back</a>
             </form>
         </br>
-            <a href = 'http://127.0.0.1:8000/' class="btn btn-default">Back</a>
         </div>
 
     </div>

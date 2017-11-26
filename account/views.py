@@ -17,11 +17,13 @@ class AccountHomeView(ListView):
 
     def get_context_data(self,*args, **kwargs):
         page_value = int(self.kwargs['page'])
+        next_page = page_value +1
+        prev_page = page_value - 1
         specified_user = User.objects.get(id = self.kwargs['pk'])
         #Returns the only 10 entries per page
-        qs = Entry.objects.filter(user=specified_user)[10*page_value-10 : 10*page_value]
+        qs = Entry.objects.filter(user=specified_user).order_by('time_created').reverse()[10*page_value-10 : 10*page_value]
 
-        context = {'user': specified_user, 'entries':qs }
+        context = {'user': specified_user, 'entries':qs, 'next_page':next_page , 'prev_page':prev_page}
         return context
     
 class AccountRegisterView(CreateView):
@@ -33,6 +35,8 @@ class AccountRegisterView(CreateView):
         self.object = form.save(commit=False)
         self.object.set_password(self.request.POST['password']);
         self.object = form.save()
+
+        login( self.request, self.object)
 
         return HttpResponseRedirect(reverse_lazy( "account:user", kwargs={"pk":str(self.object.id), "page":"1"}))
     
