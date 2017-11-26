@@ -1,88 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Home</title>
+{% extends 'base.html' %}
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+{% block style %}
+  .jumbotron{
+    margin-top: 20px;
+    border-style: solid;
+    border-color: black;
+    background-image: url('http://i.imgur.com/5ahTckK.jpg?1');
+    background-size: cover;
+    color: beige;
+  }
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
-    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+{% endblock %}
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
-    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    
-    <style type = "text/css">
-    .jumbotron{
-        margin-top: 20px;
-        border-style: solid;
-        border-color: black;
-        background-image: url('http://i.imgur.com/5ahTckK.jpg?1');
-        background-size: cover;
-        color: beige;
-    }
 
-    body {background-color:#d7cec7;}
-    hr{border-color:black;}
 
-    </style>
+{% block content %}
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+          aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"> Lorem </a>
+      </div>
 
-</head>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active">
+            <a href= {% url 'about' %}>About
+            </a>
+          </li>
+          <li>
+            <a href= {% url 'contact' %}>Contact</a>
+          </li>
 
-  <body>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"> Lorem </a>
-                </div>
-        
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href= {% url 'about' %}>About <span class="sr-only">(current)</span></a></li>
-                    <li><a href= {% url 'contact' %}>Contact</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href= {% url 'account:register' %}>
+              <span class="glyphicon glyphicon-user"></span> Sign Up</a>
+          </li>
+          <li>
+            <a href= {% url 'account:login' %}>
+              <span class="glyphicon glyphicon-log-in"></span> Login</a>
+          </li>
+        </ul>
+      </div>
 
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href= {% url 'account:register' %}><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href= {% url 'account:login' %}><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-                  
-            </div><!-- /.container-fluid -->
-        </nav>
-    <div class = "container-fluid">
-        <div class = "jumbotron text-center">
-            <h1>Lorem, ipsum dolor.</h1>
-            <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae, quo?</p>
-            
-            <a href = '#' class ="btn btn-default">Read More</a>
-        </div>
-        <hr>
 
-        <div class = "text-center">
-        <a href = {% url 'account:register' %} class="btn btn-default"><span class="glyphicon glyphicon-user"></span> Sign Up </a> </br></br>
-        <a href = {% url 'account:login' %} class="btn btn-default"> <span class="glyphicon glyphicon-log-in"></span> Log In </a>
-        </div>
     </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  </body>
-</html>
+  </nav>
+  <div class="container-fluid">
+    <div class="jumbotron text-center">
+      <h1>Lorem, ipsum dolor.</h1>
+      <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae, quo?</p>
+
+      <a href= {% url 'about' %} class="btn btn-default">Read More</a>
+    </div>
+    <hr>
+
+    <div class="text-center">
+      <a href= {% url 'account:register' %} class="btn btn-default">
+        <span class="glyphicon glyphicon-user"></span> Sign Up </a>
+      </br>
+      </br>
+      <a href= {% url 'account:login' %} class="btn btn-default">
+        <span class="glyphicon glyphicon-log-in"></span> Log In </a>
+    </div>
+  </div>
+
+{% endblock %}

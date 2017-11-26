@@ -1,69 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Register</title>
+{% extends 'base.html' %}
 
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
-    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
-    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    
-    <style type = "text/css">
-    body {background-color:#d7cec7;}
-    </style>
-
-</head>
-
-    <body>
-        <!-- Biography/About -->
+{% block content %}
+<body>
+  <!-- Biography/About -->
+  </br>
+  <div class="container" style="background-color:ghostwhite">
     </br>
-        <div class = "container" style="background-color:ghostwhite">
-        </br>
-            <div class = "row">
-                <div class="col-lg-3 col-md-3 col-sm-3">
-                    <div class = "container-fluid">
-                        <h1 class="page-header">
-                            Jack Chen
-                        </h1>
-                    </div>
-                </div>
-                <div class ="col-lg-9 col-md-9 col-sm-9" >
-                    <div class="container-fluid text-justify">
-                        <p>
-                            This is a website created by Jack Chen of Hunter College (Nov.26).
-                            The backend of the site is powered by the Django framework and the design of the pages were
-                            made using Twitter's Bootstrap API.
-                        </p>
-                        <hr>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio natus, totam ad cumque libero sint obcaecati, impedit, nemo minima incidunt quae quas nesciunt porro itaque velit necessitatibus facere. Quas, ut.
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis, dolores nam nesciunt, officiis voluptas sint, optio beatae sapiente quidem hic voluptates tenetur omnis ab quod dolorem voluptate? Quae, dolor architecto.
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam quasi aliquam officia obcaecati et voluptate quae ipsa? Accusantium sapiente, iusto quibusdam eos, suscipit enim temporibus exercitationem fuga dicta vero nesciunt!
-                        </p>
-                    </div>
-
-                </div>
-            </div> 
-
-            <a href = {% url 'main_page' %} class="btn btn-default">Back</a>
-        </br></br>
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-3">
+        <div class="container-fluid">
+          <h1 class="page-header">
+            Jack Chen
+          </h1>
+          <img src="https://i.imgur.com/XIGuHEN.png" class="img-rounded" alt="THATS ME!" width="200" height="236"> 
+        </div>
+      </div>
+      <div class="col-lg-9 col-md-9 col-sm-9">
+        <div class="container-fluid text-justify">
+          <p>
+            This is a website created by Computer Science student Jack Chen of Hunter College (Nov.26). The backend of the site is powered by the Django framework
+            and the design of the pages were made using Twitter's Bootstrap API.
+          </p>
+          <hr>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio natus, totam ad cumque libero sint obcaecati, impedit, nemo
+            minima incidunt quae quas nesciunt porro itaque velit necessitatibus facere. Quas, ut. Lorem ipsum, dolor sit
+            amet consectetur adipisicing elit. Nobis, dolores nam nesciunt, officiis voluptas sint, optio beatae sapiente
+            quidem hic voluptates tenetur omnis ab quod dolorem voluptate? Quae, dolor architecto. Lorem ipsum dolor sit,
+            amet consectetur adipisicing elit. Aperiam quasi aliquam officia obcaecati et voluptate quae ipsa? Accusantium
+            sapiente, iusto quibusdam eos, suscipit enim temporibus exercitationem fuga dicta vero nesciunt!
+          </p>
         </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  </body>
-</html>
+      </div>
+    </div>
+    </br>
+    <a href= {% url 'main_page' %} class="btn btn-default">Back</a>
+    </br>
+    </br>
+  </div>
+
+ {% endblock %}
