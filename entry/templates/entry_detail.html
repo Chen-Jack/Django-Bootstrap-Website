@@ -28,14 +28,25 @@
 </head>
 
     <body>
-        <div class="container">
-    This is the details of entry {{ entry.id }}
+    <div class="container">
+        <div class="jumobtron">
 
-    {{entry.title}}
+    <h1>{{entry.title}}</h1>
+    <h4>
+        Author: {{entry.user.username}} </br>
+        Created: {{entry.time_created}} </br>
+        Last Updated: {{entry.last_updated}} </br>
+    </h4>
+    <hr>
+    <p>
+        {{entry.text}}
+    </p>
+    
 
-    <button class='btn btn-default'>Edit </button>
-    <a href='' class="btn btn-danger">Delete</a>
+    <a href= {% url 'entry:edit' pk=entry.id %} class='btn btn-info'>Edit </a>
+    <a href= {% url 'entry:delete' pk=entry.id %} class="btn btn-danger">Delete</a>
     <a href= {% url 'account:user' pk=request.user.id page=1 %} class='btn btn-default'>Back</a>
+        </div>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

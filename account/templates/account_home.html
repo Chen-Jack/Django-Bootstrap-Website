@@ -78,7 +78,9 @@
                 
                 {% for entry in entries %}
                 <!-- <div class="jumbotron" style="border-style: solid"> -->
-                    <h4><a href= {% url 'entry:detail' pk=entry.pk %}>{{entry.title}}</a></h4>
+                    <h4><a href= {% url 'entry:detail' pk=entry.pk %}>{{entry.title}}</a>
+                        <a href= {% url 'entry:edit' pk=entry.pk %}><i class="glyphicon glyphicon-pencil"></i></a>    
+                    </h4>
                     <p>
                     Created: {{entry.time_created}}</br>
                     Last Updated: {{entry.last_updated}} </br>
