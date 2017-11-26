@@ -16,10 +16,10 @@ class AccountHomeView(ListView):
     template_name = 'account_home.html'
 
     def get_context_data(self,*args, **kwargs):
-        print(self.kwargs['pk'])
+        page_value = int(self.kwargs['page'])
         specified_user = User.objects.get(id = self.kwargs['pk'])
-        qs = Entry.objects.filter(user=specified_user)
-        print(qs)
+        #Returns the only 10 entries per page
+        qs = Entry.objects.filter(user=specified_user)[10*page_value-10 : 10*page_value]
 
         context = {'user': specified_user, 'entries':qs }
         return context

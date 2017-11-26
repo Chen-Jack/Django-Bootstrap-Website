@@ -1,5 +1,6 @@
 from django.conf.urls import url, include
 from .views import *
+from entry import urls as entry_urls
 
 app_name = "account"
 

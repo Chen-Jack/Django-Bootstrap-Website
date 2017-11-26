@@ -44,8 +44,8 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="#">About <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href= {% url 'about' %}>About</a></li>
+                <li><a href= {% url 'contact' %}>Contact</a></li>
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -73,19 +73,26 @@
     <div class = "container-fluid">
         <div class="row">
             <div class="col-lg-10 col-md-10 col-sm-10">
-                <p> <u>Posts</u> <i class="glyphicon glyphicon-menu-down"></i> </p>
+                <a href="#" style="color:black"><u>Posts</u> <i class="glyphicon glyphicon-menu-down"></i></a>
                 <hr>
                 
                 {% for entry in entries %}
-                    {{entry.title}} </br>
+                <!-- <div class="jumbotron" style="border-style: solid"> -->
+                    <h4><a href= {% url 'entry:detail' pk=entry.pk %}>{{entry.title}}</a></h4>
+                    <p>
                     Created: {{entry.time_created}}</br>
-                    {{entry.text}}</br>
+                    Last Updated: {{entry.last_updated}} </br>
+                    </p>
+                    <p>{{entry.text}}</p></br>
+
                     <hr>
+      
+                <!-- </div> -->
                 {% endfor %}
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-2">
-                <ul class = "nav navbar-nav" style="background-color:bisque">
-                    <li><a href="#"> <i class="glyphicon glyphicon-plus"></i> New Post </a></li>
+            <div class="col-lg-2 col-md-2 col-sm-2" >
+                <ul class = "nav navbar-nav" style="background-color:bisque"  style="border-style: solid">
+                    <li><a href= {% url 'entry:new_post' %}> <i class="glyphicon glyphicon-plus"></i> New Post </a></li>
                     <li><a href="#"> <i class="glyphicon glyphicon-pencil"></i> Edit Post </a></li>
                     <li><a href="#"> <i class="glyphicon glyphicon-remove"></i> Delete Post </a></li>
                 </ul>
