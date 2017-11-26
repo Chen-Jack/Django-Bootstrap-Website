@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic import TemplateView, CreateView, FormView, View, DetailView
+from django.views.generic import TemplateView, CreateView, FormView, View, DetailView, ListView
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 from django.forms import ModelForm
@@ -11,11 +11,19 @@ from .forms import *
 
 from .models import *
 
-class AccountHomeView(DetailView):
+class AccountHomeView(ListView):
     model = User
-    context_object_name = 'user'
     template_name = 'account_home.html'
 
+    def get_context_data(self,*args, **kwargs):
+        print(self.kwargs['pk'])
+        specified_user = User.objects.get(id = self.kwargs['pk'])
+        qs = Entry.objects.filter(user=specified_user)
+        print(qs)
+
+        context = {'user': specified_user, 'entries':qs }
+        return context
+    
 class AccountRegisterView(CreateView):
     form_class = AccountForm
     template_name = 'registration_page.html'
@@ -26,7 +34,7 @@ class AccountRegisterView(CreateView):
         self.object.set_password(self.request.POST['password']);
         self.object = form.save()
 
-        return HttpResponseRedirect(reverse_lazy( "account:home", kwargs={"pk":str(self.object.id)}))
+        return HttpResponseRedirect(reverse_lazy( "account:user", kwargs={"pk":str(self.object.id), "page":"1"}))
     
 class LoginView(FormView):
     form_class = LoginForm
@@ -34,7 +42,7 @@ class LoginView(FormView):
 
     def get(self,*args, **kwargs):
         if( self.request.user.is_authenticated() ):
-            return HttpResponseRedirect(reverse_lazy('account:home', kwargs={"pk":str(self.request.user.id)}))
+            return HttpResponseRedirect(reverse_lazy('account:user', kwargs={"pk":str(self.request.user.id), "page":"1"}))
         else:
             return render(self.request, self.template_name, {})
     
@@ -49,7 +57,7 @@ class LoginView(FormView):
                 )
             if(logged_in_user is not None):
                 login(self.request, logged_in_user)
-                return HttpResponseRedirect(reverse_lazy('account:home', kwargs={"pk":str(logged_in_user.id)}))
+                return HttpResponseRedirect(reverse_lazy('account:user', kwargs={"pk":str(logged_in_user.id), "page":"1"}))
             else:
                 return HttpResponse("Incorrect Username/Password")
             

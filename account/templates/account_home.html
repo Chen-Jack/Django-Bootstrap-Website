@@ -21,7 +21,7 @@
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     
     <style type = "text/css">
-    /* body {background-color: #96777d;} */
+    body {background-color:#d7cec7;}
 
     </style>
 
@@ -65,34 +65,30 @@
         </div><!-- /.container-fluid -->
     </nav>
 
-    <div class = "container">
-        <h1> This is this is the home page for {{user.username}}</h1>
+    <div class = "container text-center">
+        <h1> Latest posts by {{user.username.capitalize}} </h1>
         <hr>
     </div>
 
     <div class = "container-fluid">
         <div class="row">
             <div class="col-lg-10 col-md-10 col-sm-10">
-                <div class="panel panel-default text-center"> Posts</div>
-
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        item1   
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        item2
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        item3
-                    </div>
-                </div>
+                <p> <u>Posts</u> <i class="glyphicon glyphicon-menu-down"></i> </p>
+                <hr>
+                
+                {% for entry in entries %}
+                    {{entry.title}} </br>
+                    Created: {{entry.time_created}}</br>
+                    {{entry.text}}</br>
+                    <hr>
+                {% endfor %}
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-2" style='background-color:burlywood'>
-                <div class="container-fluid">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione tempora ipsam aperiam sunt officia consequatur architecto culpa nesciunt iusto ex. 
-                        Distinctio tempora iusto aperiam maiores explicabo eos consequatur illo iste.
-                    </p>
-                </div>
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <ul class = "nav navbar-nav" style="background-color:bisque">
+                    <li><a href="#"> <i class="glyphicon glyphicon-plus"></i> New Post </a></li>
+                    <li><a href="#"> <i class="glyphicon glyphicon-pencil"></i> Edit Post </a></li>
+                    <li><a href="#"> <i class="glyphicon glyphicon-remove"></i> Delete Post </a></li>
+                </ul>
             </div>
         </div>
     </div>
