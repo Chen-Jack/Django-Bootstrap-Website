@@ -5,16 +5,15 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import TemplateView, CreateView, FormView, View, DetailView, ListView
 from django.urls import reverse_lazy
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, mixins
 from django.forms import ModelForm
 from .forms import *
 
 from .models import *
 
-class AccountHomeView(ListView):
+class AccountHomeView(mixins.LoginRequiredMixin, ListView):
     model = User
     template_name = 'account_home.html'
-
     def get_context_data(self,*args, **kwargs):
         page_value = int(self.kwargs['page'])
         next_page = page_value +1
