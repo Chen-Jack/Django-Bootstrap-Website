@@ -13,7 +13,7 @@ from .models import *
 
 class AccountHomeView(mixins.LoginRequiredMixin, ListView):
     model = User
-    template_name = 'account_home.html'
+
     def get_context_data(self,*args, **kwargs):
         page_value = int(self.kwargs['page'])
         next_page = page_value +1
@@ -24,7 +24,14 @@ class AccountHomeView(mixins.LoginRequiredMixin, ListView):
 
         context = {'user': specified_user, 'entries':qs, 'next_page':next_page , 'prev_page':prev_page}
         return context
-    
+
+    def get_template_names(self):
+        if(str(self.request.user.pk) == str(self.kwargs['pk'])):
+            return 'account_home.html'
+        else:
+            return 'foreign_home.html'
+
+
 class AccountRegisterView(CreateView):
     form_class = AccountForm
     template_name = 'registration_page.html'

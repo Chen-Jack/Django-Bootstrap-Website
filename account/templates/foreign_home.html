@@ -1,0 +1,117 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+        aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href='#'> Lorem </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href= {% url 'about' %}>About</a>
+        </li>
+        <li>
+          <a href= {% url 'contact' %}>Contact</a>
+        </li>
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-list"></span> {{user.username}}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-user"></span> Profile</a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-cog"></span> Settings</a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li>
+              <a href= {% url 'account:logout' %}>
+                <span class="glyphicon glyphicon-log-out"></span> Logout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+<div class="container text-center">
+  <div class="jumbotron" style="border-style:solid">
+    <h1> Latest posts by {{user.username.capitalize}} </h1>
+  </div>
+  <hr>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-10 col-md-10 col-sm-10">
+      <a href="#" style="color:black">
+        <u>Posts</u>
+        <i class="glyphicon glyphicon-menu-down"></i>
+      </a>
+      <hr>
+      <!-- Prev/Next Page -->
+      <div container>
+        {% if prev_page != 0 %}
+        <a href= {% url 'account:user' pk=user.id page=prev_page %}>
+          <i class="glyphicon glyphicon-triangle-left"></i>Prev </a>
+        {% endif %}
+        <a href= {% url 'account:user' pk=user.id page=next_page %}> Next
+          <i class="glyphicon glyphicon-triangle-right"></i>
+        </a>
+      </div>
+      <hr>
+
+      <!-- Entries -->
+
+      {% for entry in entries %}
+      <h4>
+        {{entry.title}}
+      </h4>
+      <p>
+        Created: {{entry.time_created}}</br>
+        Last Updated: {{entry.last_updated}} </br>
+      </p>
+      <p>{{entry.text}}</p>
+      </br>
+
+      <hr> {% endfor %}
+
+    </div>
+  </div>
+
+  <!-- Prev/ Next Page -->
+  <div container>
+    {% if prev_page != 0 %}
+    <a href= {% url 'account:user' pk=user.id page=prev_page %}>
+      <i class="glyphicon glyphicon-triangle-left"></i>Prev </a>
+    {% endif %}
+    <a href= {% url 'account:user' pk=user.id page=next_page %}> Next
+      <i class="glyphicon glyphicon-triangle-right"></i>
+    </a>
+  </div>
+  <hr>
+
+
+</div>
+
+{% endblock %}
