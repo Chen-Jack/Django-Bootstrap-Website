@@ -10,4 +10,6 @@ urlpatterns = [
     url(r'^login/$', LoginView.as_view(), name = "login"),
     url(r'^logout/$', LogOutView.as_view() ,name='logout'),
     url(r'^register/$', AccountRegisterView.as_view(), name="register"),
+    url(r'^search/(?P<username>\w*)/$', SearchAccountView.as_view(),  name = "search"),
+
 ]

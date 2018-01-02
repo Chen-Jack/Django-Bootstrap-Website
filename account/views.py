@@ -79,5 +79,12 @@ class LogOutView(View):
     
     def get(self, request):
         logout(self.request)
-        print('logging off')
         return HttpResponseRedirect(reverse_lazy('main_page'))
+
+class SearchAccountView(ListView):
+    context_object_name = "search_results"
+    template_name = "search_results.html"
+
+    def get_queryset(self, *args, **kwargs):
+        qs = User.objects.filter(username__icontains = self.kwargs['username'])
+        return qs

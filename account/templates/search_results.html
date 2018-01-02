@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class = container>
+<h1>These are the search results</h1>
+
+    <ul>
+        {% for result in search_results %}
+        <a href = {% url 'account:user' username=result.username page=1 %} >{{result}}</a> </br>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
