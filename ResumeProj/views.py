@@ -8,7 +8,7 @@ class HomeView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         if(self.request.user.is_authenticated()):
-            return HttpResponseRedirect(reverse_lazy('account:user', kwargs={"pk":str(self.request.user.id), 'page':'1'}))
+            return HttpResponseRedirect(reverse_lazy('account:user', kwargs={"username":self.request.user.username, 'page':'1'}))
         else:
             return super(HomeView, self).get(request, *args, **kwargs)
 

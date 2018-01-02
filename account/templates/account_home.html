@@ -12,7 +12,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href= {% url 'account:user' pk=request_user.id page=1 %}> Lorem </a>
+      <a class="navbar-brand" href= {% url 'account:user' username=request_user.username page=1 %}> Lorem </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -72,10 +72,10 @@
       <!-- Prev/Next Page -->
       <div container>
         {% if prev_page != 0 %}
-        <a href= {% url 'account:user' pk=user.id page=prev_page %}>
+        <a href= {% url 'account:user' username=user.username page=prev_page %}>
           <i class="glyphicon glyphicon-triangle-left"></i>Prev </a>
         {% endif %}
-        <a href= {% url 'account:user' pk=user.id page=next_page %}> Next
+        <a href= {% url 'account:user' username=user.username page=next_page %}> Next
           <i class="glyphicon glyphicon-triangle-right"></i>
         </a>
       </div>
@@ -124,10 +124,10 @@
   <!-- Prev/ Next Page -->
   <div container>
     {% if prev_page != 0 %}
-    <a href= {% url 'account:user' pk=user.id page=prev_page %}>
+    <a href= {% url 'account:user' username=user.username page=prev_page %}>
       <i class="glyphicon glyphicon-triangle-left"></i>Prev </a>
     {% endif %}
-    <a href= {% url 'account:user' pk=user.id page=next_page %}> Next
+    <a href= {% url 'account:user' username=user.username page=next_page %}> Next
       <i class="glyphicon glyphicon-triangle-right"></i>
     </a>
   </div>

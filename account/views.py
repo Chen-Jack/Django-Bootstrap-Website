@@ -19,7 +19,7 @@ class AccountHomeView(mixins.LoginRequiredMixin, ListView):
         next_page = page_value +1
         prev_page = page_value - 1
         request_user = self.request.user
-        specified_user = User.objects.get(id = self.kwargs['pk'])
+        specified_user = User.objects.get(username = self.kwargs['username'])
         #Returns the only 10 entries per page
         qs = Entry.objects.filter(user=specified_user).order_by('time_created').reverse()[10*page_value-10 : 10*page_value]
 
@@ -27,7 +27,7 @@ class AccountHomeView(mixins.LoginRequiredMixin, ListView):
         return context
 
     def get_template_names(self):
-        if(str(self.request.user.pk) == str(self.kwargs['pk'])):
+        if(self.request.user.username == self.kwargs['username']):
             return 'account_home.html'
         else:
             return 'foreign_home.html'
@@ -45,7 +45,7 @@ class AccountRegisterView(CreateView):
 
         login( self.request, self.object)
 
-        return HttpResponseRedirect(reverse_lazy( "account:user", kwargs={"pk":str(self.object.id), "page":"1"}))
+        return HttpResponseRedirect(reverse_lazy( "account:user", kwargs={"username":self.object.username, "page":"1"}))
     
 class LoginView(FormView):
     form_class = LoginForm
@@ -53,7 +53,7 @@ class LoginView(FormView):
 
     def get(self,*args, **kwargs):
         if( self.request.user.is_authenticated() ):
-            return HttpResponseRedirect(reverse_lazy('account:user', kwargs={"pk":str(self.request.user.id), "page":"1"}))
+            return HttpResponseRedirect(reverse_lazy('account:user', kwargs={"username":self.request.user.username, "page":"1"}))
         else:
             return render(self.request, self.template_name, {})
     
@@ -68,7 +68,7 @@ class LoginView(FormView):
                 )
             if(logged_in_user is not None):
                 login(self.request, logged_in_user)
-                return HttpResponseRedirect(reverse_lazy('account:user', kwargs={"pk":str(logged_in_user.id), "page":"1"}))
+                return HttpResponseRedirect(reverse_lazy('account:user', kwargs={"username":self.request.user.username, "page":"1"}))
             else:
                 return HttpResponse("Incorrect Username/Password")
             

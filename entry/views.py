@@ -25,7 +25,7 @@ class NewEntryView(mixins.LoginRequiredMixin, CreateView):
         self.object.user = self.request.user
         self.object = form.save()
 
-        return HttpResponseRedirect(reverse_lazy( "account:user", kwargs={"pk":str(self.request.user.id), "page":"1"}))
+        return HttpResponseRedirect(reverse_lazy( "account:user", kwargs={"username":self.request.user.username, "page":"1"}))
 
 
 class EntryDetailView(mixins.LoginRequiredMixin, DetailView):
@@ -39,7 +39,7 @@ class EntryEditView(mixins.LoginRequiredMixin, UpdateView):
     model = Entry
 
     def get_success_url(self):
-        return reverse_lazy( "entry:detail", kwargs={"pk":self.object.id})
+        return reverse_lazy( "account:user", kwargs={"username":self.request.user.username, "page":"1"})
     
 
 class EntryDeleteView(mixins.LoginRequiredMixin, View):
@@ -47,4 +47,4 @@ class EntryDeleteView(mixins.LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         obj = Entry.objects.filter(id = kwargs['pk'])
         obj.delete()
-        return HttpResponseRedirect(reverse_lazy( "account:user", kwargs={"pk":self.request.user.id, "page":"1"}))
+        return HttpResponseRedirect(reverse_lazy( "account:user", kwargs={"username":self.request.user.username, "page":"1"}))
