@@ -18,11 +18,12 @@ class AccountHomeView(mixins.LoginRequiredMixin, ListView):
         page_value = int(self.kwargs['page'])
         next_page = page_value +1
         prev_page = page_value - 1
+        request_user = self.request.user
         specified_user = User.objects.get(id = self.kwargs['pk'])
         #Returns the only 10 entries per page
         qs = Entry.objects.filter(user=specified_user).order_by('time_created').reverse()[10*page_value-10 : 10*page_value]
 
-        context = {'user': specified_user, 'entries':qs, 'next_page':next_page , 'prev_page':prev_page}
+        context = {'user': specified_user, 'request_user':request_user, 'entries':qs, 'next_page':next_page , 'prev_page':prev_page}
         return context
 
     def get_template_names(self):
@@ -39,7 +40,7 @@ class AccountRegisterView(CreateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.set_password(self.request.POST['password']);
+        self.object.set_password(self.request.POST['password'])
         self.object = form.save()
 
         login( self.request, self.object)
