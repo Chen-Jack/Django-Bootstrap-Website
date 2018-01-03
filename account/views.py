@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import TemplateView, CreateView, FormView, View, DetailView, ListView
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout, mixins
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from .forms import *
 
@@ -15,6 +16,7 @@ class AccountHomeView(mixins.LoginRequiredMixin, ListView):
     model = User
 
     def get_context_data(self,*args, **kwargs):
+
         page_value = int(self.kwargs['page'])
         next_page = page_value +1
         prev_page = page_value - 1
@@ -79,12 +81,43 @@ class LogOutView(View):
     
     def get(self, request):
         logout(self.request)
-        return HttpResponseRedirect(reverse_lazy('main_page'))
+        return HttpResponseRedirect(reverse_lazy('main_page')) 
 
 class SearchAccountView(ListView):
-    context_object_name = "search_results"
+    context_object_name = "search"
     template_name = "search_results.html"
 
+    def post(self, request, *args, **kwargs):
+        print('form')
+
     def get_queryset(self, *args, **kwargs):
-        qs = User.objects.filter(username__icontains = self.kwargs['username'])
-        return qs
+        query = self.kwargs['username']
+        results = User.objects.filter(username__icontains = self.kwargs['username'])
+
+
+        return {'query':query , 'results':results}
+
+class AccountSettingsView(mixins.LoginRequiredMixin, TemplateView):    
+    template_name = "account_settings.html"
+
+class ChangePasswordView(mixins.LoginRequiredMixin, FormView):
+    form_class = ChangePasswordForm
+    template_name = 'change_password.html'
+
+    def form_valid(self,form):
+        curr_user = self.request.user
+        #Checking for correct password
+        if not authenticate( username = curr_user, password = form.cleaned_data['old_password']):
+            form.add_error(None, ValidationError( ('Incorrect Password'), code='invalid') )
+            return super(ChangePasswordView, self).form_invalid(form)
+
+        #Check if new password is identica
+        if form.cleaned_data['new_password'] != form.cleaned_data['repeat_password']:
+            form.add_error(None, ValidationError( ('Passwords did not match'), code='invalid') )
+            return super(ChangePasswordView, self).form_invalid(form)
+
+        curr_user.set_password(form.cleaned_data['new_password'])
+        curr_user.save() #Is this needed?
+
+        return HttpResponseRedirect(reverse_lazy('account:user', kwargs={"username":self.request.user.username, "page":"1"}))
+

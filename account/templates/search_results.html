@@ -2,11 +2,12 @@
 
 {% block content %}
 <div class = container>
-<h1>These are the search results</h1>
+<h1>Search Results for : "{{search.query}}"</h1>
 
     <ul>
-        {% for result in search_results %}
-        <a href = {% url 'account:user' username=result.username page=1 %} >{{result}}</a> </br>
+        {% for result in search.results %}
+        <a href = {% url 'account:user' username=result.username page=1 %}>
+            <i class="glyphicon glyphicon-eye-open"></i> {{result}}</a> </br>
         {% endfor %}
     </ul>
 </div>
