@@ -97,6 +97,7 @@
 
       {% for entry in entries %}
       <h4>
+        <!-- <input id="checkBox" type="checkbox" name = {{entry.pk}}> -->
         <a href= {% url 'entry:detail' pk=entry.pk %}>{{entry.title}}</a>
         <a href= {% url 'entry:edit' pk=entry.pk %}>
           <i class="glyphicon glyphicon-pencil"></i>
@@ -121,10 +122,10 @@
           <a href= {% url 'entry:new_post' %}>
             <i class="glyphicon glyphicon-plus"></i> New Post </a>
         </li>
-        <li>
+        <!-- <li>
           <a href="#">
             <i class="glyphicon glyphicon-pencil"></i> Edit Post </a>
-        </li>
+        </li> -->
         <li>
           <a href="#">
             <i class="glyphicon glyphicon-remove"></i> Delete Post </a>

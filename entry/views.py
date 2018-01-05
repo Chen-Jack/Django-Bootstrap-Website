@@ -32,6 +32,7 @@ class EntryDetailView(mixins.LoginRequiredMixin, DetailView):
     template_name = 'entry_detail.html'
     context_object_name = 'entry'
     model = Entry
+    
 
 class EntryEditView(mixins.LoginRequiredMixin, UpdateView):
     template_name = 'new_entry.html'
